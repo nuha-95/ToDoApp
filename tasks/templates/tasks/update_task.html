@@ -1,0 +1,90 @@
+<style>
+    body {
+        background-color: #0d1117;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .update-container {
+        background: rgba(0, 0, 0, 0.9);
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 0 25px rgba(0, 153, 255, 0.6);
+        width: 100%;
+        max-width: 420px;
+        text-align: center;
+    }
+
+    h3 {
+        color: #00aaff;
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* task row with checkbox + text */
+    .task-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .task-row input[type="checkbox"] {
+        accent-color: #00aaff;
+        transform: scale(1.3);
+        cursor: pointer;
+    }
+
+    .task-row input[type="text"] {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        outline: none;
+        background: #1a1a1a;
+        color: #fff;
+        box-shadow: inset 0 0 8px rgba(0, 153, 255, 0.4);
+        font-size: 1rem;
+    }
+
+    input[type="submit"] {
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        background: #00aaff;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: 0.3s;
+    }
+
+    input[type="submit"]:hover {
+        background: #0088cc;
+        box-shadow: 0 0 12px #00aaff;
+    }
+</style>
+
+<div class="update-container">
+    <h3>Update Task</h3>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <div class="task-row">
+            {{ form.complete }}   <!-- checkbox -->
+            {{ form.title }}      <!-- text field -->
+        </div>
+
+        <input type="submit" name="Update Task" value="Update">
+    </form>
+</div>
