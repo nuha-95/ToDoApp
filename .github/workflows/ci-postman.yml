@@ -60,14 +60,14 @@ jobs:
         npm test
     
     - name: Upload Newman report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: newman-report
         path: newman-report.html
         
     - name: Upload Playwright report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: playwright-report
