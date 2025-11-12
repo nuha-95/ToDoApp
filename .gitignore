@@ -1,16 +1,59 @@
-# Python cache
+# Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Django stuff
-*.sqlite3
-/staticfiles/
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
 media/
 
-# Environment variables
-.env
+# Virtual Environment
+venv/
+env/
+ENV/
 
-# OS files
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test Reports
+reports/
+newman-report.html
+.pytest_cache/
+
+# Playwright
+tests/ui/playwright/test-results/
+tests/ui/playwright/playwright-report/
+tests/ui/playwright/node_modules/
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Node.js (for Playwright)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

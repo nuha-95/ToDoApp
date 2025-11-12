@@ -5,3 +5,6 @@ djangorestframework==3.16.1
 setuptools==78.1.1
 sqlparse==0.5.3
 wheel==0.45.1
+requests==2.31.0
+pytest==7.4.3
+pytest-django==4.7.0

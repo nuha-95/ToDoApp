@@ -1,0 +1,74 @@
+name: Full QA Pipeline - Postman + PyTest + Playwright
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Install Python dependencies
+      run: |
+        pip install -r requirements.txt
+    
+    - name: Run migrations
+      run: |
+        python manage.py migrate
+    
+    - name: Start Django server
+      run: |
+        python manage.py runserver 0.0.0.0:8000 &
+        sleep 10
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    
+    - name: Install Newman and Playwright
+      run: |
+        npm install -g newman newman-reporter-htmlextra
+        cd tests/ui/playwright
+        npm install
+        npx playwright install
+    
+    - name: Run PyTest API tests
+      run: |
+        pytest tests/api/pytest/ -v --tb=short
+    
+    - name: Run Postman tests
+      run: |
+        newman run tests/api/postman/ToDoApp-Collection.postman_collection.json \
+          -e tests/api/postman/ToDoApp-Environment.postman_environment.json \
+          -r htmlextra \
+          --reporter-htmlextra-export newman-report.html
+    
+    - name: Run Playwright UI tests
+      run: |
+        cd tests/ui/playwright
+        npm test
+    
+    - name: Upload Newman report
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: newman-report
+        path: newman-report.html
+        
+    - name: Upload Playwright report
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: playwright-report
+        path: tests/ui/playwright/test-results/
